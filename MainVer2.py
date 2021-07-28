@@ -24,7 +24,8 @@ def get_data(sbd,year,provide_id):
     content = response.text.encode().decode('utf-8-sig')
     content_json = json.loads(content)
     mes = content_json["message"]
-    if (mes == "success") and (len(content) == 2):
+    print(len(content))
+    if (mes == "success") and (len(content) > 33):
         res = content_json["result"]
         result = res[0]
         write_to_csv_file(result,provide_id)
@@ -32,8 +33,8 @@ def get_data(sbd,year,provide_id):
         checkAll += 1
 
 if __name__ == '__main__':
-    lst_provide = ['{0:02}'.format(num) for num in range(1,65)]
-    lst_sbd = ['{0:06}'.format(num) for num in range(1,999999)]
+    lst_provide = ['{0:02}'.format(num) for num in range(1,2)]
+    lst_sbd = ['{0:06}'.format(num) for num in range(0,30)]
     for provide_id in lst_provide:
         with open(str(provide_id)+"-"+str(MaTinh[int(provide_id)])+'.csv', mode='w',newline='') as file:
             writer = csv.writer(    file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
